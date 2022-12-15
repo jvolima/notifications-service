@@ -4,3 +4,9 @@
 - Node
 - NestJS
 - Prisma
+- Jest
+
+## Conhecimentos
+- SOLID
+- In memory repository para testes unitários
+- Desacoplamento
