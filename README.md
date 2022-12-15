@@ -8,5 +8,6 @@
 
 ## Conhecimentos
 - SOLID
-- In memory repository para testes unitários
+- In memory database para testes unitários
 - Desacoplamento
+- Mappers e View Models (conversão de dados)
