@@ -7,6 +7,7 @@ export interface NotificationProps {
   content: Content;
   category: string;
   readAt?: Date | null; //undefined: valor nunca foi atribuido nem mencionado, já o null é quando queremos atualizar o valor mas para deixa-lo vazio
+  canceledAt?: Date | null;
   createdAt: Date;
 }
 
@@ -56,6 +57,14 @@ export class Notification {
 
   public get readAt(): Date | null | undefined {
     return this.props.readAt;
+  }
+
+  public cancel() {
+    this.props.canceledAt = new Date();
+  }
+
+  public get canceledAt(): Date | null | undefined {
+    return this.props.canceledAt;
   }
 
   public get createdAt(): Date {
