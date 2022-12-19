@@ -24,5 +24,5 @@
 
 
 ## Milha extra
-- [] Testes end to end
-- [] Docker
+- [] Testes de integração
+- [x] Docker

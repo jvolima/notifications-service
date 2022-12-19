@@ -1,11 +1,14 @@
 -- CreateTable
 CREATE TABLE "Notification" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "recipientId" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "category" TEXT NOT NULL,
-    "readAt" DATETIME,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "readAt" TIMESTAMP(3),
+    "canceledAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Notification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
