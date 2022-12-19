@@ -6,6 +6,8 @@
 - Prisma
 - Jest
 - Kafka
+- Docker
+- Postgres
 
 ## Conhecimentos
 - SOLID
