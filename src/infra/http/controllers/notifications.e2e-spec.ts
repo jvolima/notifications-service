@@ -30,6 +30,21 @@ describe('Notification controller (e2e)', () => {
     await app.close();
   });
 
+  it('should be able to cancel a notification', async () => {
+    const notification = await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId: 'example-recipient-id',
+      },
+    });
+
+    await request(app.getHttpServer())
+      .patch(`/notifications/${notification.id}/cancel`)
+      .expect(200);
+  });
+
   it('should be able to count notifications from recipient', async () => {
     const recipientId = 'example-recipient-id';
 
@@ -93,6 +108,36 @@ describe('Notification controller (e2e)', () => {
       .expect(200);
 
     expect(body.notifications).toHaveLength(2);
+  });
+
+  it('should be able to read a notification', async () => {
+    const notification = await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId: 'example-recipient-id',
+      },
+    });
+
+    await request(app.getHttpServer())
+      .patch(`/notifications/${notification.id}/read`)
+      .expect(200);
+  });
+
+  it('should be able to unread a notification', async () => {
+    const notification = await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId: 'example-recipient-id',
+      },
+    });
+
+    await request(app.getHttpServer())
+      .patch(`/notifications/${notification.id}/unread`)
+      .expect(200);
   });
 
   it('should be able to send a notification', async () => {
