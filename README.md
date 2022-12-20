@@ -5,6 +5,7 @@
 - NestJS
 - Prisma
 - Jest
+- Supertest
 - Kafka
 - Docker
 - Postgres
@@ -16,6 +17,7 @@
 - Mappers e View Models (conversão de dados)
 - Factories
 - Microserviços
+- Testes unitários e end to end
 
 ## Kafka
 - Serviço de mensageria
