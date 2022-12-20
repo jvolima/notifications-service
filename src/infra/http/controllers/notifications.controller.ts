@@ -76,4 +76,11 @@ export class NotificationsController {
       notification: NotificationViewModel.toHTTP(notification),
     };
   }
+
+  @Get('/')
+  async test() {
+    return {
+      message: 'Hello world',
+    };
+  }
 }
