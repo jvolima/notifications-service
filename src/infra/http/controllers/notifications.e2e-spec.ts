@@ -94,4 +94,21 @@ describe('Notification controller (e2e)', () => {
 
     expect(body.notifications).toHaveLength(2);
   });
+
+  it('should be able to send a notification', async () => {
+    const data = {
+      content: 'Você recebeu uma solicitação de amizade',
+      category: 'social',
+      recipientId: 'example-recipient-id',
+    };
+
+    const { body } = await request(app.getHttpServer())
+      .post('/notifications')
+      .send(data)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .expect(201);
+
+    expect(body.notification).toHaveProperty('id');
+  });
 });
