@@ -1,6 +1,7 @@
 import { PrismaService } from '@infra/database/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { randomUUID } from 'crypto';
 import * as request from 'supertest';
 import { AppModule } from '../../../app.module';
 
@@ -29,11 +30,68 @@ describe('Notification controller (e2e)', () => {
     await app.close();
   });
 
-  it('should be able to send a notification', async () => {
+  it('should be able to count notifications from recipient', async () => {
+    const recipientId = 'example-recipient-id';
+
+    await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId: 'another-recipient-id',
+      },
+    });
+
     const { body } = await request(app.getHttpServer())
-      .get('/notifications')
+      .get(`/notifications/count/from/${recipientId}`)
       .expect(200);
 
-    console.log(body);
+    expect(body.count).toBe(2);
+  });
+
+  it('should be able to get notifications from recipient', async () => {
+    const recipientId = 'example-recipient-id';
+
+    await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        id: randomUUID(),
+        content: 'Você recebeu uma solicitação de amizade',
+        category: 'social',
+        recipientId,
+      },
+    });
+
+    const { body } = await request(app.getHttpServer())
+      .get(`/notifications/from/${recipientId}`)
+      .expect(200);
+
+    expect(body.notifications).toHaveLength(2);
   });
 });

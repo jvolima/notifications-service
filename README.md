@@ -26,5 +26,5 @@
 
 
 ## Milha extra
-- [] Testes e2e
+- [x] Testes e2e
 - [x] Docker
